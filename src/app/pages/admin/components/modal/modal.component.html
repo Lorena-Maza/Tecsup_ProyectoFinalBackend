@@ -1,0 +1,103 @@
+<h2 mat-dialog-title>{{ data?.title }}</h2>
+<mat-dialog-content>
+  <div class="modal-form">
+    <form [formGroup]="userForm.baseForm">
+      <mat-form-field class="full-width-input">
+        <input
+          formControlName="usuCorreo"
+          matInput
+          placeholder="Email"
+          required
+        />
+        <mat-error *ngIf="checkField('usuCorreo')">
+          {{ userForm.errorMessage }}
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field class="full-width-input" *ngIf="showPasswordField">
+        <input
+          [type]="hide ? 'password' : 'text'"
+          formControlName="password"
+          matInput
+          placeholder="Password"
+          required
+        />
+        <button mat-icon-button matSuffix (click)="hide = !hide">
+          <mat-icon>{{ hide ? "visibility_off" : "visibility" }}</mat-icon>
+        </button>
+        <mat-error *ngIf="checkField('password')">
+          {{ userForm.errorMessage }}
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field class="full-width-input">
+        <input
+          formControlName="usuNombre"
+          matInput
+          placeholder="Nombre"
+          required
+        />
+        <mat-error *ngIf="checkField('usuNombre')">
+          {{ userForm.errorMessage }}
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field class="full-width-input">
+        <input
+          formControlName="usuFono"
+          matInput
+          placeholder="Celular"
+          required
+        />
+        <mat-error *ngIf="checkField('usuFono')">
+          {{ userForm.errorMessage }}
+        </mat-error>
+      </mat-form-field>      
+      
+      <!-- <mat-form-field class="full-width-input">
+        <input
+          formControlName="usuCumple"
+          matInput
+          placeholder="Fecha de Cumpleaños"
+          required
+        />
+        <mat-error *ngIf="checkField('usuCumple')">
+          {{ userForm.errorMessage }}
+        </mat-error>
+      </mat-form-field> -->
+
+      <mat-form-field appearance="fill">
+        <mat-label>Fecha de Cumpleaños</mat-label>
+        <input formControlName="usuCumple" matInput [matDatepicker]="usuCumple">
+        <mat-datepicker-toggle matSuffix [for]="usuCumple"></mat-datepicker-toggle>
+        <mat-datepicker #usuCumple></mat-datepicker>
+
+        <mat-error *ngIf="checkField('usuCumple')">
+          {{ userForm.errorMessage }}
+        </mat-error>
+      </mat-form-field>
+      
+      <mat-form-field class="full-width-input">
+        <mat-label>Select </mat-label>
+        <mat-select formControlName="role">
+          <mat-option value="suscriptor">Suscriptor</mat-option>
+          <mat-option value="admin">Admin</mat-option>
+        </mat-select>
+        <mat-error *ngIf="checkField('role')">
+          {{ userForm.errorMessage }}
+        </mat-error>
+      </mat-form-field>
+
+    </form>
+  </div>
+</mat-dialog-content>
+<mat-dialog-actions align ="end">
+  <button mat-button mat-dialog-close>Cancel</button>
+  <button
+    mat-raised-button
+    
+    color="primary"    
+    (click)="onSave()"
+    ckdFocusInitial
+    [disabled]="!userForm.baseForm.valid"
+  >
+    Save
+  </button>
+</mat-dialog-actions>
